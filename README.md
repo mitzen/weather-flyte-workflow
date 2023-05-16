@@ -23,3 +23,12 @@ Docker image for your Flyte project.
 
 We recommend using a git repository to version this project, so that you can
 use the git sha to version your Flyte workflows.
+
+
+-------------------------
+
+docker build --tag kepung/flyte-wfimage:dask  .
+
+docker push
+
+pyflyte run -i kepung/flyte-wfimage:dask --remote workflows/hellodask.py wf --name "Gilgamesh"

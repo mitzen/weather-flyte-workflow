@@ -1,23 +1,52 @@
 """A weather forecasting system."""
 
-import typing
 import pandas as pd 
-from flytekit import task, workflow
+from flytekit import task, workflow, Resources
 from sqlite3 import connect
+from flytekitplugins.dask import Dask, WorkerGroup
 
-@task
+# @task(
+#     task_config=Dask(
+#         workers=WorkerGroup(
+#             number_of_workers=1,
+#             limits=Resources(cpu="1", mem="1Gi"),
+#         ),
+#     ),
+#     limits=Resources(cpu="1", mem="1Gi"),
+#     cache_version="1",
+#     cache=True,
+# )
+
+@task()
 def processdata(weatherdata: pd.DataFrame, start: int = 0, end: int = 1) -> str: 
     print("exeecuting processdata")
     print(f"output the weather data value: {weatherdata.iloc[start:end]}")
     return "excellent!"
 
+# @task(
+#     task_config=Dask(
+#         workers=WorkerGroup(
+#             number_of_workers=1,
+#             limits=Resources(cpu="1", mem="1Gi"),
+#         ),
+#     ),
+#     limits=Resources(cpu="1", mem="1Gi"),
+#     cache_version="1",
+#     cache=True,
+# )
 @task
 def processdata2(weatherdata: pd.DataFrame, start: int = 0, end: int = 1) -> str: 
     print("exeecuting processdata2")
     print(f"output the weather data value: {weatherdata.iloc[start:end]}")
     return "excellent!"
 
-@task
+@task(
+    task_config=Dask(
+        workers=WorkerGroup(
+            number_of_workers=1,
+        ),
+    )
+)
 def get_weather_data(name: str) -> pd.DataFrame:
     """A simple Flyte task to say "hello".
 

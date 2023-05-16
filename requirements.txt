@@ -1,3 +1,8 @@
 flytekit>=1.2.7
 pandas
 scikit-learn
+dask
+flytekitplugins-dask
+flytekitplugins-sqlalchemy
+flytekitplugins-papermill
+flytekitplugins-pod
